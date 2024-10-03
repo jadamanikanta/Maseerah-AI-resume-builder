@@ -1,0 +1,25 @@
+#About {
+	background-image: url(../images/latest-work-bg.png);
+	background-size: cover;
+	background-position: center;
+	height: 60vh;
+}
+
+
+.main-side-heading{
+    font-size: 14px;
+     font-weight: bold;
+}
+
+
+.main-button{
+    border: none;
+     background-color: blue;
+    border-radius: 5px;
+    padding: 10px;
+    }
+#About button a {
+	color: rgb(245, 244, 249);
+    border: none;
+    text-decoration-line: none;
+}

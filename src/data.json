@@ -1,0 +1,137 @@
+{
+	"contact": {
+		"name": "Jada Manikanta",
+		"photoUrl": "",
+		"location": "Visakhapatnam, Andhra Pradesh, India",
+		"phone": "9618598647",
+		"email": "manikantajada16@gmail.com",
+		"linkedin": "linkedin.com/in/manikantajada16",
+		"github": "github.com/jadamanikanta"
+	},
+	"objective": "Accomplished full-stack developer with experience in both frontend and backend technologies, seeking opportunities to contribute my skills in software engineering to build scalable and efficient applications.",
+	"education": [
+		{
+			"year": "Aug 2019 - July 2023",
+			"course": "B.Tech in Mechanical Engineering",
+			"institution": "Raghu Engineering College",
+			"university": "Visakhapatnam, India",
+			"percentage": "8.6 CGPA"
+		},
+		{
+			"year": "Apr 2017 - May 2019",
+			"course": "Higher Secondary Education",
+			"institution": "Sri Chaitanya Junior College",
+			"university": "Rajam, India",
+			"percentage": "9.73 CGPA"
+		},
+		{
+			"year": "Apr 2016 - Feb 2017",
+			"course": "Secondary School Certificate (SSC)",
+			"institution": "Bhashyam Public School",
+			"university": "Rajam, India",
+			"percentage": "9.7 CGPA"
+		}
+	],
+	"languages": [
+		{ "language": "English", "level": 5 },
+		{ "language": "Telugu", "level": 5 }
+	],
+	"experience": [
+		{
+			"year": "Feb 2024 - July 2024",
+			"company": "TenAI",
+			"position": "Full Stack Developer",
+			"description": "Developed and maintained full-stack web applications, focusing on scalable, responsive, and user-friendly features. Implemented API design, microservices architecture, and RESTful APIs."
+		}
+	],
+	"certifications": [
+		{
+			"year": "",
+			"institution": "",
+			"course": "",
+			"description": "",
+			"score": ""
+		},
+		{
+			"year": "",
+			"institution": "",
+			"course": "",
+			"description": "",
+			"score": ""
+		}
+	],
+	"skills": [
+		"JavaScript",
+		"TypeScript",
+		"HTML5",
+		"CSS3",
+		"Node.js",
+		"React",
+		"ExpressJS",
+		"MongoDB",
+		"SQL",
+		"Material-UI",
+		"RESTful APIs",
+		"Git",
+		"AWS (Lambda, Amplify)"
+	],
+	"tools": [
+		"VSCode",
+		"Chrome DevTools",
+		"GitHub",
+		"Postman",
+		"Slack",
+		"Trello",
+		"npm"
+	],
+	"interests": [
+		"",
+		"",
+		"",
+		"",
+		""
+	],
+	"projects": [
+		{
+			"title": "LeadDial Pvt Ltd Portal website",
+			"link": "https://www.leaddialcrm.com/",
+			"description": "Developed a full-stack web application with RESTful APIs using Node.js, Express, MongoDB, and AWS."
+		},
+		{
+			"title": "LeadDial CRM",
+			"link": "https://app.leaddialcrm.com/",
+			"description": "Implemented a CRM platform with React and Node.js to enhance sales workflows."
+		},
+		{
+			"title": "TenAI Website",
+			"link": "https://www.tenai.in/",
+			"description": "Developed a responsive website using HTML, CSS, and JavaScript with cross-browser compatibility."
+		}
+	],
+	"workshops": [
+		{
+			"year": "",
+			"description": ""
+		},
+		{
+			"year": "",
+			"description": ""
+		}
+	],
+	"activities": [
+		{
+			"title": ""
+		},
+		{
+			"title": ""
+		}
+	],
+	"references": [
+		{
+			"name": "",
+			"desig": "",
+			"phone": "",
+			"email": ""
+		}
+	]
+}

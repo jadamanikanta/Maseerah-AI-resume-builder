@@ -1,0 +1,33 @@
+#Hero {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../images/pexels-pixabay-417192.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    text-align: center; /* Center the text content */
+}
+
+#Hero .container {
+    max-width: 1200px; /* Ensures content doesn't stretch too wide */
+}
+
+#Hero button a {
+    color: white;
+    text-decoration: none;
+}
+
+#Hero button:hover {
+    background-color: blueviolet;
+}
+.heading-main-hero-page{
+	font-size: 48px;
+	color: white;
+}
+/* .sideheading-hero-page{
+	color:rgb(253, 4, 4);
+} */
