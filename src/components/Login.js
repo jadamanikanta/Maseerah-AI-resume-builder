@@ -1,95 +1,57 @@
 import React, { useState } from 'react';
 import '../css/Login.css';
+import { useAuth } from '../components/useAuth';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 const SignUp = () => {
+
     const [returningUser, setReturningUser] = useState(false);
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        confirm_password: ''
-    });
-    const [errors, setErrors] = useState({});
-    const [authError] = useState(null);
+    const { register, handleSubmit, watch, errors } = useForm();
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-    };
+    const auth = useAuth();
 
-    const validateForm = () => {
-        const newErrors = {};
-
-        if (!returningUser && !formData.name) {
-            newErrors.name = 'Name is required';
-        } else if (!/^(?=^.{6,20}$)^[a-zA-Z-]+\s[a-zA-Z-]+$/i.test(formData.name)) {
-            newErrors.name = 'Name must be 6 - 20 characters & Minimum 2 words';
-        }
-
-        if (!formData.email) {
-            newErrors.email = 'Email is required';
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.email)) {
-            newErrors.email = 'Invalid email address';
-        }
-
-        if (!formData.password) {
-            newErrors.password = 'Password is required';
-        } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&;:])[A-Za-z\d@$!%*#?&;:]{8,}$/i.test(formData.password)) {
-            newErrors.password = 'Minimum eight characters, at least one letter, one number and one special character';
-        }
-
-        if (!returningUser && formData.password !== formData.confirm_password) {
-            newErrors.confirm_password = "Passwords don't match.";
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (validateForm()) {
-            if (returningUser) {
-                
-                if (formData.email && formData.password) {
-                    console.log('Signing in with:', formData.email, formData.password);
-                    
-                }
-            } else {
-               
-                if (formData.name && formData.email && formData.password) {
-                    console.log('Signing up with:', formData.name, formData.email, formData.password);
-                    
-                }
+    const onSubmit = data => {
+        if (returningUser) {
+            if (data.email && data.password) {
+                auth.signIn(data.email, data.password);
+            }
+        } else {
+            if (data.name && data.email && data.password && data.confirm_password) {
+                auth.signUp(data.email, data.confirm_password, data.name)
             }
         }
-    };
+
+    }
 
     return (
         <div className="sign-up">
             <div className="container">
                 <div className="text-center py-4">
-                    <Link to="/" className="text-info nav-link">
+                    <Link to="/" class="text-info nav-link">
                         <h2>Maseerah AI-resume Builder</h2>
                     </Link>
                 </div>
                 {
                     returningUser ?
-                        <form onSubmit={handleSubmit} className="py-1">
+
+                        <form onSubmit={handleSubmit(onSubmit)} className="py-3">
+
                             <h1 className='lead text-center py-3'>Welcome back!</h1>
-                            {authError && <p className="text-danger">* {authError}</p>}
+                            {
+                                auth.user != null && <p className="text-danger">* {auth.user.error}</p>
+                            }
 
                             <div className="form-group">
                                 <input
                                     name="email"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    ref={register({ required: true })}
                                     placeholder="Email"
                                 />
-                                {errors.email && <span className="error">{errors.email}</span>}
+                                {
+                                    errors.email && <span className="error">Email is required</span>
+                                }
                             </div>
 
                             <div className="form-group">
@@ -97,14 +59,19 @@ const SignUp = () => {
                                     type="password"
                                     name="password"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    ref={register({ required: true })}
                                     placeholder="Password"
                                 />
-                                {errors.password && <span className="error">{errors.password}</span>}
+                                {
+                                    errors.password && <span className="error">Password is required</span>
+                                }
                             </div>
 
                             <div className="form-group">
-                                <button className="btn btn-primary btn-block" type="submit">
+                                <button
+                                    className="btn btn-primary btn-block"
+                                    type="submit"
+                                >
                                     Sign In
                                 </button>
                             </div>
@@ -113,38 +80,63 @@ const SignUp = () => {
                                 <label> or </label>
                             </div>
 
-                            <button className='btn btn-success btn-block'>
+                            <button
+                                className='btn btn-success  btn-block'
+                                onClick={auth.signInWithGoogle}
+                            >
                                 Sign in with Google
-                            </button>
-
+                             </button>
                             <div className="option text-center my-3">
-                                <label onClick={() => setReturningUser(false)}>
+                                <label
+                                    onClick={() => setReturningUser(false)}
+                                >
                                     Create a new Account
-                                </label>
+                                     </label>
                             </div>
                         </form>
+
                         :
-                        <form onSubmit={handleSubmit} className="py-2">
-                            {authError && <p className="text-danger">* {authError}</p>}
+
+                        <form onSubmit={handleSubmit(onSubmit)} className="py-2">
+
+                            {
+                                auth.user != null && <p className="text-danger">* {auth.user.error}</p>
+                            }
 
                             <div className="form-group">
                                 <input
                                     name="name"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    ref={register({
+                                        required: "Name is required",
+                                        pattern: {
+                                            value: /^(?=^.{6,20}$)^[a-zA-Z-]+\s[a-zA-Z-]+$/i,
+                                            message: "Name must be 6 - 20 characters & Minimum 2 words"
+                                        }
+                                    })}
                                     placeholder="Name"
                                 />
-                                {errors.name && <span className="error">{errors.name}</span>}
+                                <span className="error">
+                                    {errors.name && errors.name.message}
+                                </span>
                             </div>
 
                             <div className="form-group">
                                 <input
                                     name="email"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    ref={register({
+                                        required: "Email is required",
+                                        pattern: {
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                            message: "Invalid email address"
+                                        }
+                                    })}
                                     placeholder="Email"
                                 />
-                                {errors.email && <span className="error">{errors.email}</span>}
+                                <span className="error">
+                                    {errors.email && errors.email.message}
+                                </span>
                             </div>
 
                             <div className="form-group">
@@ -152,10 +144,18 @@ const SignUp = () => {
                                     type="password"
                                     name="password"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    ref={register({
+                                        required: "Password is required",
+                                        pattern: {
+                                            value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&;:])[A-Za-z\d@$!%*#?&;:]{8,}$/i,
+                                            message: "Minimum eight characters, at least one letter, one number and one special character"
+                                        }
+                                    })}
                                     placeholder="Password"
                                 />
-                                {errors.password && <span className="error">{errors.password}</span>}
+                                <span className="error">
+                                    {errors.password && errors.password.message}
+                                </span>
                             </div>
 
                             <div className="form-group">
@@ -163,20 +163,29 @@ const SignUp = () => {
                                     type="password"
                                     name="confirm_password"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    ref={register({
+                                        validate: (value) => value === watch('password')
+                                    })}
                                     placeholder="Confirm Password"
                                 />
-                                {errors.confirm_password && <span className="error">{errors.confirm_password}</span>}
+                                {
+                                    errors.confirm_password && <span className="error">Passwords don't match.</span>
+                                }
                             </div>
 
                             <div className="form-group">
-                                <button className="btn btn-primary btn-block" type="submit">
+                                <button
+                                    className="btn btn-primary btn-block"
+                                    type="submit"
+                                >
                                     Sign Up
                                 </button>
                             </div>
 
                             <div className="option text-center my-3">
-                                <label onClick={() => setReturningUser(true)}>
+                                <label
+                                    onClick={() => setReturningUser(true)}
+                                >
                                     Already Have an Account
                                 </label>
                             </div>

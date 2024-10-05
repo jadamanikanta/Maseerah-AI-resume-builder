@@ -13,7 +13,7 @@ const Features = () => {
                 <div class="row">
                     <div class="left-text col-lg-7 col-md-12 col-sm-12 mobile-bottom-fix">
                         <div class="my-5">
-                            <h2>Our resume Builder Features</h2>
+                            <h2>Our Maseerah-AI Resume Features</h2>
                             <p>A creative, professional layout can grab a recruiter's attention. Our resume layout optimizer makes sure all your content is aligned and organized so your resume looks like a work of art.</p>
                         </div>
 

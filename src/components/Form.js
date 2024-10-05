@@ -17,7 +17,6 @@ const Form = ({ data, setData, preset, setColor }) => {
   let workshops = data.workshops;
   let activities = data.activities;
 
-  // Handle JSON file upload
   const handleFileUpload = (files) => {
     var fileReader = new FileReader();
     fileReader.onload = (event) => {
@@ -29,7 +28,7 @@ const Form = ({ data, setData, preset, setColor }) => {
     fileReader.readAsText(files[files.length - 1]);
   };
 
-  // Handle JSON file download
+  
   const handleFileDownload = async () => {
     const fileName = 'resume';
     const json = JSON.stringify(data, undefined, 2);
@@ -43,7 +42,6 @@ const Form = ({ data, setData, preset, setColor }) => {
     document.body.removeChild(link);
   };
 
-  // Handle photo upload
   const handlePhotoUpload = (files) => {
     setData({
       ...data,
@@ -54,7 +52,7 @@ const Form = ({ data, setData, preset, setColor }) => {
     });
   };
 
-  // skills
+  
   const [skills, setSkills] = useState('');
   useEffect(() => {
     let temp = '';
@@ -63,7 +61,7 @@ const Form = ({ data, setData, preset, setColor }) => {
     setSkills(temp);
   }, [data]);
 
-  // Tools
+  
   const [tools, setTools] = useState('');
   useEffect(() => {
     let temp = '';
@@ -72,7 +70,7 @@ const Form = ({ data, setData, preset, setColor }) => {
     setTools(temp);
   }, [data]);
 
-  // interests
+  
   const [interests, setInterests] = useState('');
   useEffect(() => {
     let temp = '';
@@ -81,7 +79,6 @@ const Form = ({ data, setData, preset, setColor }) => {
     setInterests(temp);
   }, [data]);
 
-  // Contact
   const handleContactChange = (e) => {
     setData({
       ...data,
@@ -92,7 +89,6 @@ const Form = ({ data, setData, preset, setColor }) => {
     });
   };
 
-  // Skills
   const handleSkillsUpdate = () => {
     var array = skills.split(',');
     setData({
@@ -101,7 +97,7 @@ const Form = ({ data, setData, preset, setColor }) => {
     });
   };
 
-  // Tools
+ 
   const handleToolsUpdate = () => {
     var array = tools.split(',');
     setData({
@@ -110,7 +106,6 @@ const Form = ({ data, setData, preset, setColor }) => {
     });
   };
 
-  // Interests
   const handleInterestsUpdate = () => {
     var array = interests.split(',');
     setData({
@@ -119,7 +114,6 @@ const Form = ({ data, setData, preset, setColor }) => {
     });
   };
 
-  // Add Row
   const addRow = (section, structure) => {
     let temp = section;
     temp.push(structure);
@@ -129,7 +123,7 @@ const Form = ({ data, setData, preset, setColor }) => {
     });
   };
 
-  // Remove Row
+  
   const removeRow = (section, index) => {
     let temp = section;
     temp[index] = {};
@@ -140,7 +134,7 @@ const Form = ({ data, setData, preset, setColor }) => {
     });
   };
 
-  // Handle Change
+  
   const handleChange = (e, index, section, type) => {
     let temp = section;
     temp[index][type] = e.target.value;
@@ -161,7 +155,7 @@ const Form = ({ data, setData, preset, setColor }) => {
     });
   };
 
-  // Handle color scheme change
+  
   const changeColorScheme = (item) => {
     setColor({ primary: item.primary, background: item.background, skills: item.skills });
   };
@@ -175,8 +169,7 @@ const Form = ({ data, setData, preset, setColor }) => {
         <p>Select color scheme: </p>
         <div className='colorContainer'>
           {preset.map((item, key) => (
-            // console.log(item)
-
+            
             <div
               key={key}
               className='colorScheme'
@@ -234,7 +227,6 @@ const Form = ({ data, setData, preset, setColor }) => {
           <hr />
           <h3 className='heading'>Contact</h3>
           <p className='label'>Name</p>
-          {/* <span>Please use your full name</span> */}
           <input type='text' name='name' value={name} onChange={handleContactChange} />
           <p className='label'>Photo URL</p>
           <input type='text' name='photoUrl' value={photoUrl} onChange={handleContactChange} />
