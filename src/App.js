@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, Fragment, Suspense, lazy } from 're
 import './styles/App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'; 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
 import { Helmet } from "react-helmet";
 import jsonData from './data.json';
 import { useReactToPrint } from 'react-to-print';
@@ -17,6 +17,7 @@ const Form = lazy(() => import('./components/Form'));
 const Resume = lazy(() => import('./components/Resume'));
 const Login = lazy(() => import('./components/Login'));
 const Contact = lazy(() => import('./components/Contact'));
+
 
 function App() {
   const [data, setData] = useState();
@@ -44,22 +45,23 @@ function App() {
   });
 
   
-  const location = useLocation();
+  // const location = useLocation();
   
-  useEffect(() => {
+  // useEffect(() => {
     
-    const gtag = window.gtag || function() {};
+  //   const gtag = window.gtag || function() {};
     
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-Q1FZSVYSN8');  
+  //   window.dataLayer = window.dataLayer || [];
+  //   function gtag(){dataLayer.push(arguments);}
+  //   gtag('js', new Date());
+  //   gtag('config', 'G-Q1FZSVYSN8');  
 
     
-    gtag('event', 'page_view', { page_path: location.pathname });
-  }, [location]);
+  //   gtag('event', 'page_view', { page_path: location.pathname });
+  // }, [location]);
 
   return (
+    
     <Router>
       <Helmet>
         <title>Maseerah - AI-Enabled Resume Builder</title>
@@ -85,7 +87,7 @@ function App() {
           }`}
         </script>
        
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1FZSVYSN8"></script>
+        {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1FZSVYSN8"></script>
         <script>
           {`
             window.dataLayer = window.dataLayer || [];
@@ -93,7 +95,7 @@ function App() {
             gtag('js', new Date());
             gtag('config', 'G-Q1FZSVYSN8');
           `}
-        </script>
+        </script> */}
       </Helmet>
       <div className="App">
         <Suspense fallback={<div>Loading...</div>}>
@@ -143,6 +145,7 @@ function App() {
         </Suspense>
       </div>
     </Router>
+   
   );
 }
 

@@ -1,11 +1,9 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
-import * as firebase from "firebase/app";
 import "firebase/auth";
-import firebaseConfig from '../firebase.config';
-import { Route, Redirect } from 'react-router-dom';
+import { analytics } from '../firebase.config';
+import { Route,Navigate } from 'react-router-dom';
 
 //***************** Fire base Initialization ************************
-firebase.initializeApp(firebaseConfig);
 
 const AuthContext = createContext();
 
@@ -22,20 +20,20 @@ export const PrivateRoute = ({ children, ...rest }) => {
     const auth = useAuth();
     return (
         <Route
-            {...rest}
-            render={({ location }) =>
-                auth.user ? (
-                    children
-                ) : (
-                        <Redirect
-                            to={{
-                                pathname: "/login",
-                                state: { from: location }
-                            }}
-                        />
-                    )
-            }
-        />
+        {...rest}
+        element={
+          auth.user ? (
+            children
+          ) : (
+            <Navigate
+              to={{
+                pathname: "/login",
+                state: { from: rest.location }
+              }}
+            />
+          )
+        }
+      />
     );
 }
 
@@ -50,7 +48,7 @@ const Auth = () => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        firebase.auth().onAuthStateChanged(function (user) {
+        analytics.auth().onAuthStateChanged(function (user) {
             if (user) {
                 const currentUser = user;
                 setUser(currentUser);
@@ -61,9 +59,9 @@ const Auth = () => {
 
     //***************** sign in with popup Start ************************
     const signInWithGoogle = () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
+        const provider = new analytics.auth.GoogleAuthProvider();
 
-        return firebase.auth().signInWithPopup(provider)
+        return analytics.auth().signInWithPopup(provider)
             .then(result => {
                 const signedInUser = getUser(result.user);
                 setUser(signedInUser);
@@ -78,7 +76,7 @@ const Auth = () => {
     }
 
     const signIn = (email, password) => {
-        return firebase.auth().signInWithEmailAndPassword(email, password)
+        return analytics.auth().signInWithEmailAndPassword(email, password)
             .then(result => {
                 setUser(result.user);
                 window.history.back();
@@ -90,9 +88,9 @@ const Auth = () => {
     }
 
     const signUp = (email, password, name) => {
-        return firebase.auth().createUserWithEmailAndPassword(email, password)
+        return analytics.auth().createUserWithEmailAndPassword(email, password)
             .then(result => {
-                firebase.auth().currentUser.updateProfile({
+                analytics.auth().currentUser.updateProfile({
                     displayName: name
                 })
                     .then(() => {
@@ -107,7 +105,7 @@ const Auth = () => {
     }
 
     const signOut = () => {
-        return firebase.auth().signOut()
+        return analytics.auth().signOut()
             .then(result => {
                 setUser(null);
                 return true;
